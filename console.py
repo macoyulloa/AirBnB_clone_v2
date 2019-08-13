@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = arg.split(" ")
             if my_list[0] not in self.all_classes:
-                print("** class doesn't exist **")
+                raise NameError() 
             obj = eval("{}()".format(my_list[0]))
             for i in range(1, len(my_list)):
                 my_list_arg = my_list[i].split('=')
