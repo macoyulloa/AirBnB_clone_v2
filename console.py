@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = arg.split(" ")
             if my_list[0] not in self.all_classes:
-                raise NameError() 
+                raise NameError()
             obj = eval("{}()".format(my_list[0]))
             for i in range(1, len(my_list)):
                 my_list_arg = my_list[i].split('=')
@@ -52,8 +52,7 @@ class HBNBCommand(cmd.Cmd):
                 elif (my_list_arg[1].replace(".", "")).isdigit():
                     value = float(my_list_arg[1])
                 else:
-                    my_list_arg[1].replace("_", " ")
-                    value = my_list_arg[1]
+                    value = my_list_arg[1].replace("_", " ")
                 key = my_list_arg[0]
                 setattr(obj, key, value)
             obj.save()
