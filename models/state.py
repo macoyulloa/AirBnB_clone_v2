@@ -10,8 +10,14 @@ class State(BaseModel, Base):
     name """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship("City", cascade="delete", backref="state")
-    @property
-    def cities(self):
-        return 
 
+    if HBNB_TYPE_STORAGE=db:
+        cities = relationship("City", cascade="delete", backref="state")
+    else:
+        @property
+        def cities(self):
+            allcities = ()
+            for key, value in models.storage.all((model.city).items()):
+                if value.state.id == self.id:
+                allcities.append = value
+        return(allcities)
