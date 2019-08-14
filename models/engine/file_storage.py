@@ -55,3 +55,9 @@ class FileStorage:
                     self.__objects[key] = value
         except FileNotFoundError:
             pass
+
+
+    def delete(self, obj=None):
+        ' delete the obj from the history '
+        for key, value in self.__objects.items():
+            if key == obj 
