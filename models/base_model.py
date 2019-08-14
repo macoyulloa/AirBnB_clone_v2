@@ -13,7 +13,7 @@ class BaseModel():
     for other classes
     """
 
-    id = Column(String(60), primary_key=True, nullable=False, unique=True) 
+    id = Column(String(60), primary_key=True, nullable=False, unique=True)
     created_at = Column(DateTime, datetime.utcnow(), nullable=False)
     update_at = Column(DateTime, datetime.utcnow(), nullable=False)
 
@@ -67,9 +67,14 @@ class BaseModel():
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
+        try:
+            del self.__dict__["_sa_instance_state"]
+            models.storage.save()
+        except KeyError:
+            pass
         return my_dict
 
     def delete(self):
         ' Delete the current instance from storage '
         models.storage.delete(self)
-
+        models.storage.save()
