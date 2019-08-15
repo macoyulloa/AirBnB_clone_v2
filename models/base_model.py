@@ -44,6 +44,9 @@ class BaseModel():
         Return:
             returns a string of class name, id, and dictionary
         """
+        tmp = self.__dict__
+        if "_sa_instance_state" in tmp.keys():
+            del tmp['_sa_instance_state']
         return "[{}] ({}) {}".format(
             type(self).__name__, self.id, self.__dict__)
 
