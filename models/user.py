@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 import models
 
+
 class User(BaseModel, Base):
     """This is the class for user
     Attributes:
@@ -13,7 +14,6 @@ class User(BaseModel, Base):
         first_name: first name
         last_name: last name
     """
-
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
