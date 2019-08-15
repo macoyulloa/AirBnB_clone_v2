@@ -10,7 +10,7 @@ from models.place import Place
 from models.review import Review
 
 
-class FileStorage:
+class FileStorage():
     """This class serializes instances to a JSON file and
     deserializes JSON file to instances
     Attributes:
@@ -25,7 +25,6 @@ class FileStorage:
         Return:
             returns a dictionary of __object
         """
-
         ndict = {}
         if cls is None:
             return self.__objects
