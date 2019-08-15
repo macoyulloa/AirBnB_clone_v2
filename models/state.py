@@ -20,7 +20,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             'list of City instances with state_id equals the current State.id'
-            allcities = [] 
+            allcities = []
             for key, value in models.storage.all.items():
                 if value["state_id"] == self.id:
                     allcities.append(value)
