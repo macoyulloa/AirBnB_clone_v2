@@ -14,9 +14,9 @@ class BaseModel():
     for other classes
     """
 
-    id = Column(String(60), primary_key=True, nullable=False, unique=True)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
-    update_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    update_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 
     def __init__(self, *args, **kwargs):
@@ -29,15 +29,16 @@ class BaseModel():
             created_at: creation date
             updated_at: updated date
         """
+        self.id = str(uuid.uuid4()) 
+        self.created_at = self.updated_at = datetime.now() 
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != "__class__":
+                elif key != "__class__":
                     setattr(self, key, value)
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.now()
+        if not hasattr(self, "id"):
+            pass
 
     def __str__(self):
         """returns a string
@@ -68,14 +69,10 @@ class BaseModel():
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
-        try:
-            del self.__dict__["_sa_instance_state"]
-            models.storage.save()
-        except KeyError:
-            pass
+        if "_sa_instance_state" in my_dict.keys(): 
+            del my_dict["_sa_instance_state"]
         return my_dict
 
     def delete(self):
         ' Delete the current instance from storage '
         models.storage.delete(self)
-        models.storage.save()

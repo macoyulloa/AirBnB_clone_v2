@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This is the state class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from os import getenv
 import models
@@ -20,8 +20,8 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             'list of City instances with state_id equals the current State.id'
-            allcities = ()
-            for key, value in models.storage.all((models.city).items()):
-                if value.state.id == self.id:
-                    allcities.append = value
+            allcities = [] 
+            for key, value in models.storage.all.items():
+                if value["state_id"] == self.id:
+                    allcities.append(value)
             return(allcities)

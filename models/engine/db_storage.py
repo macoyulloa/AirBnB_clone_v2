@@ -47,8 +47,7 @@ class DBStorage():
 
     def new(self, obj):
         " creating a new object inside the table "
-        new_object = self.obj
-        self.__session.add(new_object)
+        self.__session.add(obj)
         self.save()
 
     def save(self):
@@ -61,8 +60,6 @@ class DBStorage():
             del_obj = self.__session.query(obj)
             del_obj.delete(synchronize_session=False)
             self.save()
-        else:
-            pass
 
     def reload(self):
         " create all tables and create the current session"
