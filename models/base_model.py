@@ -2,8 +2,9 @@
 """This is the base model class for AirBnB"""
 import uuid
 import models
+import datetime
 from datetime import datetime
-from sqlalchemy import DateTime, Column, String
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -14,8 +15,8 @@ class BaseModel():
     """
 
     id = Column(String(60), primary_key=True, nullable=False, unique=True)
-    created_at = Column(DateTime, datetime.utcnow(), nullable=False)
-    update_at = Column(DateTime, datetime.utcnow(), nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    update_at = Column(DateTime, nullable=False, default=datetime.utcnow)
 
 
     def __init__(self, *args, **kwargs):
