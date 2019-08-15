@@ -32,9 +32,7 @@ class DBStorage():
         " List all the objects taking in account the object class"
         dict_all = {}
         if cls is None:
-            for cls_name in [
-                    "User", "State", "City",
-                    "Amenity", "Place", "Review"]:
+            for cls_name in [State, City]:
                 for each_cls in self.__session.query(cls_name).all():
                     key = "{}.{}".format(type(each_cls).__name__, each_cls.id)
                     dict_all[key] = each_cls
@@ -48,7 +46,6 @@ class DBStorage():
     def new(self, obj):
         " creating a new object inside the table "
         self.__session.add(obj)
-        self.save()
 
     def save(self):
         " commit all changes of the current session "
@@ -56,9 +53,8 @@ class DBStorage():
 
     def delete(self, obj=None):
         " delete from the current database session "
-        if obj is not None:
-            del_obj = self.__session.query(obj)
-            del_obj.delete(synchronize_session=False)
+        if obj:
+            obj.delete(synchronize_session=False)
             self.save()
 
     def reload(self):

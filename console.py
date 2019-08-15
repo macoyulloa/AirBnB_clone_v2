@@ -53,6 +53,7 @@ class HBNBCommand(cmd.Cmd):
                     value = float(my_list_arg[1])
                 else:
                     value = my_list_arg[1].replace("_", " ")
+                    value = value[1:-1]
                 key = my_list_arg[0]
                 setattr(obj, key, value)
             obj.save()
