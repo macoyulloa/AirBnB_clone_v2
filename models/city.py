@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 'class definition of a State and an instance Base = declarative_base()'
-
-from sqlalchemy import Column, Integer, String, ForeignKey
 from models.base_model import BaseModel, Base
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 

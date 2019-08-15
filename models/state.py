@@ -22,6 +22,7 @@ class State(BaseModel, Base):
             'list of City instances with state_id equals the current State.id'
             allcities = []
             for key, value in models.storage.all.items():
-                if value["state_id"] == self.id:
-                    allcities.append(value)
+                if hasattr(value, "state_id"):
+                    if value["state_id"] == self.id:
+                        allcities.append(value)
             return(allcities)
