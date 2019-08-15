@@ -29,8 +29,7 @@ class DBStorage():
             MetaData.drop_all(engine)
 
     def all(self, cls=None):
-        " List all the objects taking in account if they are
-        passing us a class or want the all list of objects"
+        " List all the objects taking in account the object class"
         dict_all = {}
         if cls is None:
             for cls_name in [
@@ -47,8 +46,7 @@ class DBStorage():
         return (dict_all)
 
     def new(self, obj):
-        " creating a new object inside the table in a
-        current session"
+        " creating a new object inside the table "
         new_object = self.obj
         self.__session.add(new_object)
         self.save()
@@ -67,8 +65,7 @@ class DBStorage():
             pass
 
     def reload(self):
-        " create all tables in the database
-        and create the current database session"
+        " create all tables and create the current session"
         Base.metadata.create_all(self.__engine)
         ses_fac = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(ses_fac)
