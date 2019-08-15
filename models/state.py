@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """This is the state class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
 from models.engine.file_storage import FileStorage
+import models
 
 
 class State(BaseModel, Base):
