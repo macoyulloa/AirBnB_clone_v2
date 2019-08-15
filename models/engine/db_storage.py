@@ -1,16 +1,16 @@
 #!/usr/bin/python3
 """This is the database storage class for AirBnB"""
-from models.base_model import BaseModel
+from os import getenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from sqlalchemy import create_engine, Table
-from sqlalchemy.orm import scoped_session
-from sqlalchemy.orm import sessionmaker
-from os import getenv
 
 
 class DBStorage():
@@ -20,13 +20,13 @@ class DBStorage():
     def __init__(self):
         " Starts the engine to connect with the DataBase "
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            getenv(HBNB_MYSQL_USER),
-            getenv(HBNB_MYSQL_PWD),
-            getenv(HBNB_MYSQL_HOST),
-            getenv(HBNB_MYSQL_DB)),
+            getenv('HBNB_MYSQL_USER'),
+            getenv('HBNB_MYSQL_PWD'),
+            getenv('HBNB_MYSQL_HOST'),
+            getenv('HBNB_MYSQL_DB')),
             pool_pre_ping=True)
-        if getenv(HBNB_ENV) == test:
-            MetaData.drop_all(engine)
+        if getenv('HBNB_ENV') == 'test':
+            Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
         " List all the objects taking in account the object class"
