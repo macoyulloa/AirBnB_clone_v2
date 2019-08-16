@@ -42,20 +42,28 @@ class HBNBCommand(cmd.Cmd):
             if not arg:
                 raise SyntaxError()
             my_list = arg.split(" ")
-            if my_list[0] not in self.all_classes:
-                raise NameError()
             obj = eval("{}()".format(my_list[0]))
-            for i in range(1, len(my_list)):
-                my_list_arg = my_list[i].split('=')
-                if my_list_arg[1].isdigit():
-                    value = int(my_list_arg[1])
-                elif (my_list_arg[1].replace(".", "")).isdigit():
-                    value = float(my_list_arg[1])
-                else:
+            if len(my_list) > 1:
+                for i in range(1, len(my_list)):
+                    my_list_arg = my_list[i].split('=')
                     value = my_list_arg[1].replace("_", " ")
-                    value = value[1:-1]
-                key = my_list_arg[0]
-                setattr(obj, key, value)
+                    try:
+                        if '"' not in my_list_arg[1]:
+                            value = int(value)
+                    except:
+                        pass
+                    try:
+                        if '"' not in my_list_arg[1]:
+                            if type(value) != int:
+                                value = float(value)
+                    except:
+                        pass
+                    try:
+                        value = value.replace('"', '')
+                    except:
+                        pass
+                    key = my_list_arg[0]
+                    setattr(obj, key, value)
             obj.save()
             print("{}".format(obj.id))
 
