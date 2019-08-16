@@ -4,17 +4,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
 import models
-from sqlalchemy import *
-
-
-place_amenity = Table('place_amenity', metadata,
-                      Column('place_id', String(60), ForeignKey('states.id'),
-                             nullable=False),
-                      Column('amenity_id', String(60),
-                             ForeignKey('amenities.id'),
-                             nullable=False))
-
-metadata = Base.metadata
 
 
 class Place(BaseModel, Base):
