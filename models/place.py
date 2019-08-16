@@ -57,8 +57,8 @@ class Place(BaseModel, Base):
         amenitys_list = ()
         dict_amenitys = models.storage.all(models.Amenity)
         for key, value in dict_amenitys.items():
-            for search_id in self.anemitys_ids:
-                if value.id == search_id
+            for search_id in self.amenity_ids:
+                if value.id == search_id:
                 amenitys_list.append(value)
         return(amenitys_list)
 
