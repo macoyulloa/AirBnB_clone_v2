@@ -50,7 +50,6 @@ class Place(BaseModel, Base):
     amenities = relationship("Amenity", secondary="place_amenity",
                              viewonly=False, backref="place_amenities")
 
-
     @property
     def amenities(self):
         """returns the list of Amenity instances"""
