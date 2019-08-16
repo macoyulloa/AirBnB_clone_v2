@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, Float, String, ForeignKey, Table
+from sqlalchemy import Column, Float, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
 import models
-from sqlalchemy import *
 
 
 place_amenity = Table('place_amenity', Base.metadata,
@@ -13,8 +12,6 @@ place_amenity = Table('place_amenity', Base.metadata,
                       Column('amenity_id', String(60),
                              ForeignKey('amenities.id'),
                              nullable=False))
-
-metadata = Base.metadata
 
 
 class Place(BaseModel, Base):
@@ -64,5 +61,5 @@ class Place(BaseModel, Base):
     @amenities.setter
     def amenities(self, obj):
         """append method for adding an Amenity.id to attribute amenity_ids"""
-        if (type(obj).__Classname__) == Amenity:
+        if obj.__name__ == Amenity:
             self.amenity_ids.append(obj.id)
