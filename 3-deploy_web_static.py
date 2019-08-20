@@ -5,5 +5,5 @@ from fabric.api import local
 from datetime import datetime
 
 
-def do_pack():
+def deploy():
     pass
