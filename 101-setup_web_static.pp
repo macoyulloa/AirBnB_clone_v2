@@ -2,11 +2,11 @@
 exec { 'apt-get update':
   command => '/usr/bin/apt-get update',
 }
-->package { 'install nginx':
+->package { 'nginx':
   ensure  => 'present',
   require => Exec['apt-get update'],
 }
-->file_line { 'header http_header':
+->file_line { 'http_header':
   path  => '/etc/nginx/nginx.conf',
   match => 'http {',
   line  => "http {\n\tadd_header X-Served-By \"${hostname}\";",
