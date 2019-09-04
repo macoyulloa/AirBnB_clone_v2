@@ -31,7 +31,7 @@ class DBStorage():
     def all(self, cls=None):
         " List all the objects taking in account the object class"
         dict_all = {}
-        if cls is None:
+        if cls is not None:
             for cls_name in [State, City, User, Place, Review]:
                 for each_cls in self.__session.query(cls_name).all():
                     key = "{}.{}".format(type(each_cls).__name__, each_cls.id)
