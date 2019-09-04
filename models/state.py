@@ -17,12 +17,14 @@ class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship("City", cascade="delete", backref="state")
     else:
+        name = ""
+
         @property
         def cities(self):
             'list of City instances with state_id equals the current State.id'
             allcities = []
-            for key, value in models.storage.all.items():
-                if hasattr(value, "state_id"):
-                    if value["state_id"] == self.id:
-                        allcities.append(value)
+            fliter_cities = models.storage.all(models.city.City)
+            for key, value in filter_cities.items():
+                if value.state_id == self.id:
+                    allcities.append(value)
             return(allcities)
