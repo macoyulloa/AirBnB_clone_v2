@@ -12,9 +12,9 @@ class State(BaseModel, Base):
     Attributes:
     name """
     __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
+        name = Column(String(128), nullable=False)
         cities = relationship("City", cascade="delete", backref="state")
     else:
         name = ""
@@ -23,7 +23,7 @@ class State(BaseModel, Base):
         def cities(self):
             'list of City instances with state_id equals the current State.id'
             allcities = []
-            fliter_cities = models.storage.all(models.city.City)
+            filter_cities = models.storage.all(models.city.City)
             for key, value in filter_cities.items():
                 if value.state_id == self.id:
                     allcities.append(value)
